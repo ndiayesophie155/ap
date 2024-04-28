@@ -1,0 +1,87 @@
+sophie@sophie-HP-Laptop-17-cp0xxx:~$ sudo mysql
+[sudo] Mot de passe de sophie : 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.35-0ubuntu0.23.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE gestion_scolaire;
+Query OK, 1 row affected (0,01 sec)
+
+mysql> USE gestion_scolaire;
+Database changed
+mysql> CREATE TABLE Etudiant (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     nom VARCHAR(250),
+    ->     prenom VARCHAR(250),
+    ->     email VARCHAR(250)
+    -> );
+Query OK, 0 rows affected (0,03 sec)
+
+mysql> SHOW TABLES;
++----------------------------+
+| Tables_in_gestion_scolaire |
++----------------------------+
+| Etudiant                   |
++----------------------------+
+1 row in set (0,00 sec)
+
+mysql> SHOW COLUMNS FROM Etudiant;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nom    | varchar(250) | YES  |     | NULL    |                |
+| prenom | varchar(250) | YES  |     | NULL    |                |
+| email  | varchar(250) | YES  |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0,04 sec)
+
+mysql> CREATE TABLE Cours (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     nom VARCHAR(250),
+    ->     description VARCHAR(250)
+    -> );
+Query OK, 0 rows affected (0,05 sec)
+
+mysql> SHOW TABLES;
++----------------------------+
+| Tables_in_gestion_scolaire |
++----------------------------+
+| Cours                      |
+| Etudiant                   |
++----------------------------+
+2 rows in set (0,00 sec)
+
+mysql> SHOW COLUMNS FROM Cours;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int          | NO   | PRI | NULL    | auto_increment |
+| nom         | varchar(250) | YES  |     | NULL    |                |
+| description | varchar(250) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+3 rows in set (0,01 sec)
+
+mysql> CREATE TABLE Note (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     id_etudiant INT,
+    ->     id_cours INT,
+    ->     note DECIMAL(5, 2),
+    ->     FOREIGN KEY (id_etudiant) REFERENCES Etudiant(id),
+    ->     FOREIGN KEY (id_cours) REFERENCES Cours(id)
+    -> );
+Query OK, 0 rows affected (0,03 sec)
+
+mysql> SHOW TABLES;
++----------------------------+
+| Tables_in_gestion_scolaire |
++----------------------------+
+| Cours                      |
